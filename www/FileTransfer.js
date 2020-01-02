@@ -198,6 +198,15 @@ FileTransfer.prototype.download = function(source, target, successCallback, erro
     }
 
     var win = function(result) {
+        
+        if (result === null || result === undefined) {
+            if (errorCallback) {
+                errorCallback("result is undefined");
+            } else {
+                successCallback(undefined)
+            }
+        }
+        
         if (typeof result.lengthComputable != "undefined") {
             if (self.onprogress) {
                 return self.onprogress(newProgressEvent(result));
